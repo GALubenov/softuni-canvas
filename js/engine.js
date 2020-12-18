@@ -31,6 +31,7 @@ window.addEventListener('load', async () => {
     instance.start();
 
     if (instance.hasOwnProperty('render')) {
+        console.log('RENDER')
         let lastTime = 0;
         let delta = 0;
         const tick = instance.tick || (() => { });

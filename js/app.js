@@ -16,11 +16,13 @@ export function app(draw) {
     };
     const mice = [];
 
+    function render() {
+
+    }
     function drawScene() {
         // Clear previous frame and draw grid
         draw.clear();
         draw.grid();
-
         // Get cat coordinates and draw on scene at 25% scale
         draw.image('cat.png', catPosition.x, catPosition.y, 0.25);
         draw.rect(100, 50, 200, 30, 'blue');
@@ -32,19 +34,14 @@ export function app(draw) {
         for (let mouse of mice) {
             draw.image('mouse.png', mouse.x, mouse.y, 0.1);
             //  console.log(`${mouse.x}, ${mouse.y}`);
-
             if (mouse.x >= 100 && mouse.x <= 200 && mouse.y >= 100 && mouse.y <= 200) {
                 // console.log('Mouse in a house');
                 draw.text(`We have mouse in a house!`, 100, 20, 'black');
             } else {
-
                 let a = mouse.x - catPosition.x;
                 let b = mouse.y - catPosition.y;
-
                 let c = Math.sqrt(a * a + b * b); // c is the distance
-
                 draw.text(`${Math.trunc(c)}!`, mouse.x - 5, mouse.y + 30, 'green');
-
                 if (c <= 80) {
                     let index = mice.indexOf(mouse);
                     mice.splice(index, 1);
@@ -88,6 +85,7 @@ export function app(draw) {
     return {
         start,
         onClick,
-        onKey
+        onKey,
+        render
     };
 }
