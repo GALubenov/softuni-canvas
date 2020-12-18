@@ -23,10 +23,33 @@ export function app(draw) {
 
         // Get cat coordinates and draw on scene at 25% scale
         draw.image('cat.png', catPosition.x, catPosition.y, 0.25);
-
+        draw.rect(100, 50, 200, 30, 'blue');
+        draw.circle(400, 500, 20, 'green');
+        draw.text('Hello, Canvas!', 120, 70, '#ff9900');
+        draw.rect(100, 100, 100, 100, 'red');
+        draw.text('House!', 120, 150, 'green');
         // Iterate mice array and draw each mouse at 10% scale
         for (let mouse of mice) {
             draw.image('mouse.png', mouse.x, mouse.y, 0.1);
+            //  console.log(`${mouse.x}, ${mouse.y}`);
+
+            if (mouse.x >= 100 && mouse.x <= 200 && mouse.y >= 100 && mouse.y <= 200) {
+                // console.log('Mouse in a house');
+                draw.text(`We have mouse in a house!`, 100, 20, 'black');
+            } else {
+
+                let a = mouse.x - catPosition.x;
+                let b = mouse.y - catPosition.y;
+
+                let c = Math.sqrt(a * a + b * b); // c is the distance
+
+                draw.text(`${Math.trunc(c)}!`, mouse.x - 5, mouse.y + 30, 'green');
+
+                if (c <= 80) {
+                    let index = mice.indexOf(mouse);
+                    mice.splice(index, 1);
+                }
+            }
         }
     }
 
